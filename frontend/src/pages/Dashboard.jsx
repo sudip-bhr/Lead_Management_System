@@ -46,7 +46,7 @@ export default function Dashboard() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Welcome back, {user?.name.split(' ')[0]}!</h1>
+          <h1 className="text-2xl font-bold">Welcome back, {user?.name?.split(' ')[0] || 'User'}!</h1>
           <p className="text-sm text-gray-500">Here's your summary for today.</p>
         </div>
       </div>
