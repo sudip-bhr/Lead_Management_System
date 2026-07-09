@@ -13,6 +13,7 @@ import Bootcamps from './pages/Bootcamps';
 import BootcampDetail from './pages/BootcampDetail';
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
+import Settings from './pages/Settings';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
 import { OfflineBanner } from './components/ui/OfflineBanner';
 
@@ -36,6 +37,7 @@ function App() {
               <Route path="/knowledge" element={<KnowledgeBase />} />
               <Route path="/chat-sessions" element={<ChatSessions />} />
               <Route path="/analytics" element={<Analytics />} />
+              <Route path="/settings" element={<Settings />} />
             </Route>
           </Route>
         </Routes>
