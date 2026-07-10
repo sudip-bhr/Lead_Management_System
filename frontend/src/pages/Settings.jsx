@@ -2,10 +2,35 @@ import React, { useState } from 'react';
 import { useAuthStore } from '../store/authStore';
 import { User, Bell, Shield, Key, Save, Smartphone, Mail, Globe } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { api } from '../lib/axios';
 
 export default function Settings() {
   const { user } = useAuthStore();
   const [activeTab, setActiveTab] = useState('profile');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState({ type: '', text: '' });
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    if (!currentPassword || !newPassword) {
+      setPasswordMessage({ type: 'error', text: 'Please fill in both fields.' });
+      return;
+    }
+    setIsChangingPassword(true);
+    setPasswordMessage({ type: '', text: '' });
+    try {
+      await api.put('/auth/password', { currentPassword, newPassword });
+      setPasswordMessage({ type: 'success', text: 'Password updated successfully!' });
+      setCurrentPassword('');
+      setNewPassword('');
+    } catch (error) {
+      setPasswordMessage({ type: 'error', text: error.response?.data?.error || 'Failed to update password' });
+    } finally {
+      setIsChangingPassword(false);
+    }
+  };
 
   const tabs = [
     { id: 'profile', name: 'Profile', icon: User },
@@ -143,11 +168,18 @@ export default function Settings() {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-sm font-medium text-gray-900 mb-3">Change Password</h3>
-                  <div className="space-y-4 max-w-md">
+                  <form onSubmit={handlePasswordChange} className="space-y-4 max-w-md">
+                    {passwordMessage.text && (
+                      <div className={cn("p-3 rounded-md text-sm", passwordMessage.type === 'error' ? "bg-red-50 text-red-700" : "bg-green-50 text-green-700")}>
+                        {passwordMessage.text}
+                      </div>
+                    )}
                     <div className="space-y-2">
                       <label className="text-sm font-medium text-gray-700">Current Password</label>
                       <input
                         type="password"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       />
                     </div>
@@ -155,13 +187,15 @@ export default function Settings() {
                       <label className="text-sm font-medium text-gray-700">New Password</label>
                       <input
                         type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       />
                     </div>
-                    <button className="px-4 py-2 bg-gray-800 text-white rounded-md text-sm font-medium hover:bg-gray-900 transition mt-2">
-                      Update Password
+                    <button type="submit" disabled={isChangingPassword} className="px-4 py-2 bg-gray-800 text-white rounded-md text-sm font-medium hover:bg-gray-900 transition mt-2 disabled:opacity-50">
+                      {isChangingPassword ? 'Updating...' : 'Update Password'}
                     </button>
-                  </div>
+                  </form>
                 </div>
 
                 <div className="border-t pt-6 mt-6">
