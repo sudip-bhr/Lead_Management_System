@@ -31,6 +31,7 @@ export default function Login() {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-blue-600">Dursikshya LMS</CardTitle>
           <p className="text-sm text-gray-500">Sign in to your account</p>
+          <p className="text-xs text-blue-500 mt-2">Hint: Use <b>admin@dursikshya.edu.np</b> and <b>admin123</b></p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
