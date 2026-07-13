@@ -5,4 +5,9 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  build: {
+    // generates external .map files, no eval, safe for strict CSP
+    sourcemap: true,
+    target: 'es2015',
+  },
 })
