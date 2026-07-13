@@ -14,6 +14,7 @@ export default function KnowledgeBase() {
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState('');
+  const [sourceWebsite, setSourceWebsite] = useState('CodeWay Labs');
 
   const fetchDocs = async () => {
     try {
@@ -35,6 +36,7 @@ export default function KnowledgeBase() {
 
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('source_website', sourceWebsite);
 
     try {
       setUploading(true);
@@ -101,6 +103,19 @@ export default function KnowledgeBase() {
                 onChange={handleUpload}
               />
             </label>
+            <div className="flex flex-col gap-1">
+              <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Target Website</label>
+              <select 
+                value={sourceWebsite}
+                onChange={e => setSourceWebsite(e.target.value)}
+                disabled={uploading}
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
+              >
+                <option value="CodeWay Labs">CodeWay Labs</option>
+                <option value="Verve Innovation">Verve Innovation</option>
+                <option value="Dursikshya">Dursikshya (LMS)</option>
+              </select>
+            </div>
           </div>
           {uploadProgress && (
             <p className={`mt-2 text-sm ${uploadProgress.startsWith('✓') ? 'text-emerald-600' : uploadProgress.startsWith('✗') ? 'text-red-500' : 'text-blue-500'}`}>
@@ -119,6 +134,7 @@ export default function KnowledgeBase() {
             <thead className="border-b bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left font-medium text-gray-500">Filename</th>
+                <th className="px-6 py-3 text-left font-medium text-gray-500">Website</th>
                 <th className="px-6 py-3 text-left font-medium text-gray-500">Chunks</th>
                 <th className="px-6 py-3 text-left font-medium text-gray-500">Uploaded By</th>
                 <th className="px-6 py-3 text-left font-medium text-gray-500">Status</th>
@@ -134,6 +150,9 @@ export default function KnowledgeBase() {
               ) : docs.map((doc) => (
                 <tr key={doc.id} className="border-b last:border-0">
                   <td className="px-6 py-4 font-medium">{doc.filename}</td>
+                  <td className="px-6 py-4 text-gray-600 font-medium">
+                    <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-md text-xs">{doc.source_website || 'Dursikshya'}</span>
+                  </td>
                   <td className="px-6 py-4 text-gray-600">{doc.chunk_count}</td>
                   <td className="px-6 py-4 text-gray-600">{doc.uploaded_by_name || 'System'}</td>
                   <td className="px-6 py-4"><StatusBadge active={doc.is_active} /></td>
