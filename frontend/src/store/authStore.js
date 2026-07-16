@@ -2,18 +2,20 @@ import { create } from 'zustand';
 
 export const useAuthStore = create((set) => ({
   user: null,
-  token: localStorage.getItem('token') || null,
-  isAuthenticated: !!localStorage.getItem('token'),
+  token: null, // JWT lives in memory only — NOT localStorage (XSS protection)
+  isAuthenticated: false,
+  isInitialized: false, // true after silent-refresh attempt on boot
   login: (userData, token) => {
-    localStorage.setItem('token', token);
-    set({ user: userData, token, isAuthenticated: true });
+    set({ user: userData, token, isAuthenticated: true, isInitialized: true });
   },
   setToken: (token) => {
-    localStorage.setItem('token', token);
-    set({ token, isAuthenticated: true });
+    set({ token, isAuthenticated: true, isInitialized: true });
+  },
+  setInitialized: () => {
+    set({ isInitialized: true });
   },
   logout: () => {
-    localStorage.removeItem('token');
-    set({ user: null, token: null, isAuthenticated: false });
+    set({ user: null, token: null, isAuthenticated: false, isInitialized: true });
   },
 }));
+

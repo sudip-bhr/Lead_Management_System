@@ -11,9 +11,14 @@ node_modules
 dist
 dist-ssr
 *.local
+
+# Environment files (keep .env.example for onboarding)
 .env
 .env.*
+!.env.example
 
+# Build artifacts
+dist-embed
 
 # Editor directories and files
 .vscode/*

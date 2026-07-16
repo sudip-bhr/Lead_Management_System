@@ -1,16 +1,86 @@
-# React + Vite
+# Lead Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A full-stack CRM and lead management platform for educational institutions. Built with **React** (frontend) and **Node.js/Express** (backend), powered by **Supabase/PostgreSQL**.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Lead Pipeline** — Kanban board with drag-and-drop lead management
+- **AI Chatbot** — Embeddable chat widget with RAG-powered responses (Gemini + Cohere embeddings)
+- **Knowledge Base** — Upload documents to train the chatbot
+- **Analytics Dashboard** — Visual reporting with Recharts
+- **Bootcamp Management** — Create and manage educational programs
+- **WhatsApp Integration** — Receive and route leads from WhatsApp
+- **Role-Based Access** — Admin and counselor roles with scoped views
+- **Follow-Up Scheduling** — Automated reminders and activity logging
 
-## React Compiler
+## Repository Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This repository contains the **frontend** application. The backend lives in a [separate repository](https://github.com/sudip-bhr/Lead_Management_System_Backend).
 
-## Expanding the Oxlint configuration
+```
+Lead_Management_System/
+├── frontend/              ← React/Vite SPA
+│   ├── src/
+│   │   ├── components/    ← Feature-grouped UI components
+│   │   ├── pages/         ← Route-level page components
+│   │   ├── layouts/       ← App shell and auth guards
+│   │   ├── store/         ← Zustand state management
+│   │   ├── lib/           ← Axios client and utilities
+│   │   └── embed/         ← Standalone chatbot embed entry
+│   ├── public/            ← Static assets
+│   └── vite.config.js     ← Main build config
+└── README.md
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Quick Start
+
+### Prerequisites
+
+- **Node.js** v18+
+- **npm** v9+
+- A running instance of the [backend API](https://github.com/sudip-bhr/Lead_Management_System_Backend)
+
+### Setup
+
+```bash
+# Clone
+git clone https://github.com/sudip-bhr/Lead_Management_System.git
+cd Lead_Management_System/frontend
+
+# Configure environment
+cp .env.example .env
+# Edit .env with your backend API URL
+
+# Install & run
+npm install
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`.
+
+### Build
+
+```bash
+# Production build
+npm run build
+
+# Embeddable chat widget build
+npm run build:embed
+```
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | React 19 + Vite 8 |
+| Styling | Tailwind CSS 4 |
+| State | Zustand |
+| Routing | React Router 7 |
+| Charts | Recharts |
+| Drag & Drop | @dnd-kit |
+| HTTP | Axios |
+| Linting | Oxlint |
+
+## Related
+
+- [Backend Repository](https://github.com/sudip-bhr/Lead_Management_System_Backend)
