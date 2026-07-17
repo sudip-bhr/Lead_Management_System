@@ -52,7 +52,7 @@ export function ChatWidget() {
       const data = await res.json();
       setSessionId(data.sessionId);
       setMessages([{ role: 'assistant', content: data.reply }]);
-    } catch (err) {
+    } catch {
       setMessages([{ role: 'assistant', content: 'Hello! How can I help you today?' }]);
     } finally {
       setLoading(false);

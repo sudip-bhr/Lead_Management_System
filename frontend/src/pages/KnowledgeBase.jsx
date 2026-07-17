@@ -58,7 +58,7 @@ export default function KnowledgeBase() {
     try {
       await api.patch(`/knowledge/${id}/toggle`, { is_active: !current });
       fetchDocs();
-    } catch (err) {
+    } catch {
       alert('Failed to update document status.');
     }
   };
@@ -68,7 +68,7 @@ export default function KnowledgeBase() {
     try {
       await api.delete(`/knowledge/${id}`);
       fetchDocs();
-    } catch (err) {
+    } catch {
       alert('Failed to delete document.');
     }
   };

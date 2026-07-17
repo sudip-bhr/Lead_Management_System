@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../lib/axios';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { useAuthStore } from '../store/authStore';
-import { Users, CheckCircle, MessageSquare } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 
 export default function BootcampDetail() {
   const { id } = useParams();
@@ -15,7 +15,7 @@ export default function BootcampDetail() {
   const [processing, setProcessing] = useState(false);
   const [attendanceEdits, setAttendanceEdits] = useState({});
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       const [res, statsRes] = await Promise.all([
@@ -34,9 +34,9 @@ export default function BootcampDetail() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
-  useEffect(() => { fetchData(); }, [id]);
+  useEffect(() => { fetchData(); }, [fetchData]);
 
   const isManagerOrAdmin = user?.role === 'admin' || user?.role === 'manager';
 
@@ -57,7 +57,7 @@ export default function BootcampDetail() {
       await api.patch(`/bootcamps/${id}/attendance`, { attendees: changes });
       await fetchData();
       alert('Attendance saved!');
-    } catch (err) {
+    } catch {
       alert('Failed to save attendance');
     } finally {
       setProcessing(false);
@@ -70,7 +70,7 @@ export default function BootcampDetail() {
       setProcessing(true);
       const { data: resData } = await api.post(`/bootcamps/${id}/bulk-message`);
       alert(`Successfully sent ${resData.sent} messages.`);
-    } catch (err) {
+    } catch {
       alert('Failed to send messages');
     } finally {
       setProcessing(false);
@@ -84,7 +84,7 @@ export default function BootcampDetail() {
       const { data: resData } = await api.post(`/bootcamps/${id}/post-event`);
       alert(`Post-event pipeline complete. ${resData.processed} leads processed.`);
       fetchData();
-    } catch (err) {
+    } catch {
       alert('Failed to run post-event pipeline');
     } finally {
       setProcessing(false);

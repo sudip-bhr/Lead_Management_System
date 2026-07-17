@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuthStore } from '../store/authStore';
-import { User, Bell, Shield, Key, Save, Smartphone, Mail, Globe } from 'lucide-react';
+import { User, Bell, Shield, Save, Smartphone, Mail, Globe } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { api } from '../lib/axios';
 

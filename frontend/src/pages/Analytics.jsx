@@ -20,7 +20,7 @@ export default function Analytics() {
       document.body.appendChild(link);
       link.click();
       link.remove();
-    } catch (err) {
+    } catch {
       alert('Failed to export CSV');
     } finally {
       setDownloading(false);

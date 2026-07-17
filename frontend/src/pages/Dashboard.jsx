@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../lib/axios';
 import { useAuthStore } from '../store/authStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
-import { Users, TrendingUp, Calendar, Target, AlertCircle } from 'lucide-react';
+import { Users, TrendingUp, Target, AlertCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, FunnelChart, Funnel, LabelList } from 'recharts';
 
 export default function Dashboard() {
@@ -37,7 +37,6 @@ export default function Dashboard() {
   if (!data) return <div>Error loading dashboard.</div>;
 
   const { metrics, sources, funnel } = data;
-  const isManagerOrAdmin = user?.role === 'admin' || user?.role === 'manager';
 
   // Colors for charts
   const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#64748b'];

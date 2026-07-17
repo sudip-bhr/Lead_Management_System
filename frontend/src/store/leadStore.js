@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { api } from '../lib/axios';
 
-export const useLeadStore = create((set, get) => ({
+export const useLeadStore = create((set, _get) => ({
   leads: [],
   total: 0,
   loading: false,

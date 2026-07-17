@@ -46,7 +46,7 @@ export default function UserManagement() {
     try {
       await api.delete(`/users/${userId}`);
       fetchUsers();
-    } catch (err) {
+    } catch {
       alert('Failed to delete user.');
     }
   };
