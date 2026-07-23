@@ -8,6 +8,7 @@ export function QuickAddLeadModal({ isOpen, onClose, onSuccess }) {
     name: '',
     phone: '',
     email: '',
+    source: 'website',
     course_interest: '',
   });
   const [loading, setLoading] = useState(false);
@@ -19,12 +20,12 @@ export function QuickAddLeadModal({ isOpen, onClose, onSuccess }) {
     try {
       setLoading(true);
       await api.post('/leads', formData);
-      setFormData({ name: '', phone: '', email: '', course_interest: '' });
+      setFormData({ name: '', phone: '', email: '', source: 'website', course_interest: '' });
       onSuccess?.();
       onClose();
     } catch (error) {
       console.error('Failed to add lead', error);
-      alert('Failed to add lead. Check console.');
+      alert(error.response?.data?.error || 'Failed to add lead.');
     } finally {
       setLoading(false);
     }
@@ -61,6 +62,25 @@ export function QuickAddLeadModal({ isOpen, onClose, onSuccess }) {
               value={formData.email} 
               onChange={(e) => setFormData({ ...formData, email: e.target.value })} 
             />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium">Lead Source</label>
+            <select
+              value={formData.source}
+              onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+              className="w-full rounded-md border border-gray-300 p-2 text-sm focus:border-blue-500 focus:outline-none"
+            >
+              <option value="whatsapp">WhatsApp</option>
+              <option value="facebook">Facebook Lead Ads</option>
+              <option value="website">Website Form</option>
+              <option value="walkin">Walk-in</option>
+              <option value="referral">Referral</option>
+              <option value="college">College Seminar</option>
+              <option value="bootcamp">Bootcamp</option>
+              <option value="chatbot">Website Chatbot</option>
+              <option value="phone_inquiry">Phone Inquiry</option>
+              <option value="other">Other</option>
+            </select>
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium">Course Interest</label>

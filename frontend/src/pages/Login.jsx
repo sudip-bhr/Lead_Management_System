@@ -27,7 +27,7 @@ export default function Login() {
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-50">
-      <Card className="w-[400px]">
+      <Card className="w-100">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-blue-600">Dursikshya LMS</CardTitle>
           <p className="text-sm text-gray-500">Sign in to your account</p>
