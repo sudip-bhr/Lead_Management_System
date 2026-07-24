@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run build:embed && cp dist-embed/chatbot.js dist/chat-widget.js",
     "build:embed": "vite build --config vite.embed.config.js",
     "lint": "oxlint",
     "preview": "vite preview"
