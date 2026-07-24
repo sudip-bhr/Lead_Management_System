@@ -106,7 +106,7 @@ export function ChatWidget() {
     <div className="fixed bottom-6 right-6 z-9999 flex flex-col items-end">
       {/* Chat Panel */}
       <div
-        className={`mb-4 flex h-[520px] w-[360px] flex-col overflow-hidden rounded-2xl bg-gray-50 shadow-2xl transition-all duration-300 ${
+        className={`mb-4 flex h-130 w-90 flex-col overflow-hidden rounded-2xl bg-gray-50 shadow-2xl transition-all duration-300 ${
           isOpen ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
         }`}
         style={{ transformOrigin: 'bottom right' }}

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-
+import { BotMessageSquare } from 'lucide-react';
 /**
  * EmbeddableChatWidget — A self-contained, configurable AI chatbot widget
  * that communicates with the LEAD MS backend.
@@ -404,7 +404,7 @@ export default function EmbeddableChatWidget({
               justifyContent: 'center', border: '2px solid #fff',
             }}>1</span>
           )}
-          {isOpen ? '✕' : '💬'}
+          {isOpen ? '✕' : <BotMessageSquare/>}
         </button>
       </div>
     </>
