@@ -126,7 +126,7 @@ export default function EmbeddableChatWidget({
       const res = await fetch(`${apiUrl}/chat/session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ source_website: window.location.hostname }),
+        body: JSON.stringify({ source_website: brandName }),
       });
       const data = await res.json();
       setSessionId(data.sessionId);
